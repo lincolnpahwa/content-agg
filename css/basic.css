@@ -1,0 +1,80 @@
+
+body {
+	width: 80%;
+	height: 600px;
+	margin: 10 auto;
+	padding: 20px;
+	background : #000;
+}
+
+#feedContainer {
+	width: 100%;
+}
+
+#addMore {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+.item {
+	padding: 3px;
+	height: auto;
+	border: 1px solid #eee;
+	position: absolute;
+	margin: 15px;
+	width: 250px;
+	background: #7c7c7c;
+	color: #ddd;
+	font-size: 14px;
+	font-family: Arial, Verdana;
+	border-radius: 5px;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+	display : none;
+}
+
+
+.item a {
+	text-decoration : none;
+	color : #eee;
+}
+
+.item:hover {
+	background: #7c7c7c;
+	color: #fff;
+	font-weight : bolder;
+	z-index : 10001;
+	width : 400px;
+	border : 6px solid #fff;
+}
+
+.item:hover a{
+	font-size : 105%;
+	text-decoration : underline;
+	color : #fff;
+}
+
+.item div.title {
+	font-weight: bold;
+	border-bottom: 1px solid #eee;
+	cursor: pointer;
+	color : #fff;
+	padding-bottom : 3px;
+}
+
+.item div.author {
+	font-weight: small;
+}
+.item div.desc {
+	font-size : 80%;
+	padding : 5px 0;
+	margin : 2px 0;
+}
+
+.item div.desc img, .item div.desc object, .item div.desc embed, .item div.desc iframe {
+	display : none;
+}
