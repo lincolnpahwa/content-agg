@@ -3,9 +3,11 @@ var COLUMN_WIDTH = 250, NUM_COLUMNS = 0, MARGIN = 15, ColumnsHeightArray, LeftOf
 var itemsArray = [];
 var OFFSET = 1;
 
+var ServerAppURL = 'EventListener.php', ServerEvent = 'event', ServerEventValue = 'LoadRss';
+
 var randomHexHelperArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
 
-function rssObject(t, l, d, pD, a) {
+function RssItem(t, l, d, pD, a) {
 	this.title = t;
 	this.link = l;
 	this.description = d;
@@ -25,7 +27,6 @@ $(document).ready(function() {
 });
 
 function setupPage() {
-
 	NUM_COLUMNS = Math.floor(($('#feedContainer').width())/(COLUMN_WIDTH + (MARGIN * 2)));
 	ColumnsHeightArray = new Array(NUM_COLUMNS);
 	for ( var c = 0; c< ColumnsHeightArray.length; c++) {ColumnsHeightArray[c] = MARGIN;} 
@@ -37,12 +38,7 @@ function addDataToPage(){
 	if(rssURL == null || rssURL == '') {
 		rssURL = DEFAULT_RSS_URL;
 	}
-	$.get('EventListener.php?event=LoadRss&rssURL='+rssURL+'&offset='+OFFSET,function(data) {
-			var items = eval(data);
-			for(i in items) {
-				arrangeItemsIntoColumns(items[i]);
-			}
-		},'json');
+	getItemsFromServer(rssURL);
 }
 // Arranges items in to columns, adding item to the column with least height
 function arrangeItemsIntoColumns(item) {
@@ -122,6 +118,16 @@ function getItemsFromFile(path) {
 	    arrangeXMLItems($xml);
 	},
 	'xml');
+}
+
+// Get Items via ajax call 
+function getItemsFromServer(rssURL) {
+	$.get(ServerAppURL + '?' + ServerEvent + '=' + ServerEventValue + '&rssURL='+rssURL+'&offset='+OFFSET,function(data) {
+			var items = eval(data);
+			for(i in items) {
+				arrangeItemsIntoColumns(items[i]);
+			}
+		},'json');
 }
 
 //Function to get the Min value in Array
