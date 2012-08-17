@@ -1,5 +1,5 @@
 <?php
-class EventListener{
+class EventListenerControl{
 	function __construct($event) {
 		$this->SelectAction($event);
 	}	

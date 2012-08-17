@@ -86,6 +86,17 @@ function arrangeItemsIntoColumns(item) {
 			ColumnsHeightArray[minIndex] += minIndex+$(itemWrapper).height()+MARGIN;
 		}
 }
+
+function arrangeItemsIntoColumnsJQT(items) {
+	var markup = '<div class="item"><div class="title">${title[0]}</div><div class="author">${author[0]}</div><div class="date">${pubDate[0]}</div><div class="desc">${description[0]}</div></div>';
+
+	/* Compile markup string as a named template */
+	$.template( "itemTemplate", markup );
+
+	/* Render the named template */
+	$.tmpl( "itemTemplate", items ).appendTo( "#feedContainer" );
+}
+
 // Iterate over XML nodes and arrange them in to columns
 function arrangeXMLItems(){
 	$xml.find("item").each(function() {
@@ -125,9 +136,12 @@ function getItemsFromFile(path) {
 function getItemsFromServer(rssURL) {
 	$.get(ServerAppURL + '?' + ServerEvent + '=' + ServerEventValue + '&rssURL='+rssURL+'&offset='+OFFSET,function(data) {
 			var items = eval(data);
+			/** without templating solution
 			for(i in items) {
 				arrangeItemsIntoColumns(items[i]);
 			}
+			**/
+			arrangeItemsIntoColumnsJQT(items);
 		},'json');
 }
 
