@@ -49,7 +49,7 @@ function arrangeItemsIntoColumns(item) {
 		itemTitle.innerHTML = item.title[0];
 		var itemAuthor = document.createElement('div');
 		itemAuthor.className = 'author';
-		if(item.author[0])
+		if(item.author && item.author[0])
 			itemAuthor.innerHTML = item.author[0];
 		var itemDate = document.createElement('div');
 		itemDate.className = 'date';
