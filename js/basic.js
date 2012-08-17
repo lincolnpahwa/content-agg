@@ -136,7 +136,7 @@ function getItemsFromFile(path) {
 function getItemsFromServer(rssURL) {
 	$.get(ServerAppURL + '?' + ServerEvent + '=' + ServerEventValue + '&rssURL='+rssURL+'&offset='+OFFSET,function(data) {
 			var items = eval(data);
-			 without templating solution
+			 //without templating solution
 			for(i in items) {
 				arrangeItemsIntoColumns(items[i]);
 			}
