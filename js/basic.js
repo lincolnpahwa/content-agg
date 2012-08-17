@@ -156,16 +156,13 @@ function getItemsFromFile(path) {
 
 // Get Items via ajax call 
 function getItemsFromServer(rssURL) {
-	var startTime = new Date().getTime();
 	$.get(ServerAppURL + '?' + ServerEvent + '=' + ServerEventValue + '&rssURL='+rssURL+'&offset='+OFFSET,function(data) {
 			var items = eval(data);
 			 //without templating solution
 			//for(i in items) {
 			//	arrangeItemsIntoColumns(items[i]);
 			//}
-			console.log(new Date().getTime() - startTime);
 			arrangeItemsIntoColumnsJQT(items);
-			console.log(new Date().getTime() - startTime);
 		},'json');
 }
 
