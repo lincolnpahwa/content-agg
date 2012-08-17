@@ -28,6 +28,7 @@ body {
 	color: #ddd;
 	font-size: 14px;
 	font-family: Arial, Verdana;
+	cursor: pointer;
 	border-radius: 5px;
 	-webkit-transition: all 0.5s ease-in-out;
 	-moz-transition: all 0.5s ease-in-out;
@@ -61,7 +62,6 @@ body {
 .item div.title {
 	font-weight: bold;
 	border-bottom: 1px solid #eee;
-	cursor: pointer;
 	color : #fff;
 	padding-bottom : 3px;
 }

@@ -88,13 +88,35 @@ function arrangeItemsIntoColumns(item) {
 }
 
 function arrangeItemsIntoColumnsJQT(items) {
-	var markup = '<div class="item"><div class="title">${title[0]}</div><div class="author">${author[0]}</div><div class="date">${pubDate[0]}</div><div class="desc">${description[0]}</div></div>';
+	var markup = '<div class="item"><div class="title">${title[0]}</div><div class="date">${pubDate[0]}</div><div class="desc">${description[0]}</div></div>';
 
 	/* Compile markup string as a named template */
 	$.template( "itemTemplate", markup );
 
 	/* Render the named template */
-	$.tmpl( "itemTemplate", items ).appendTo( "#feedContainer" );
+	var renderedItems = $.tmpl( "itemTemplate", items );
+	for(var i = 0; i<renderedItems.length;i++) {
+		var itemWrapper = renderedItems[i];
+		var itemDesc = '';
+		$(itemWrapper).context.innerHTML = htmlDecode($(itemWrapper).context.innerHTML);
+		var minValueOfColumn = Array.min(ColumnsHeightArray);
+		var minIndex = $.inArray(minValueOfColumn, ColumnsHeightArray);
+		var itemLeftPosition = MARGIN+(minIndex*(COLUMN_WIDTH+MARGIN))+LeftOffSet;
+		var randomColor = '#'+randomHexHelperArray[Math.floor((Math.random()*15))]+randomHexHelperArray[Math.floor((Math.random()*15))]
+		+randomHexHelperArray[Math.floor((Math.random()*15))]+randomHexHelperArray[Math.floor((Math.random()*15))]
+		+randomHexHelperArray[Math.floor((Math.random()*15))]+randomHexHelperArray[Math.floor((Math.random()*15))];
+		$(itemWrapper).css ({
+			'left' : itemLeftPosition+'px',
+			'top'  : minValueOfColumn+'px',
+			'background' : randomColor
+		});
+		//if(	$(itemWrapper)findtitle[0].indexOf('Podcast') <0)
+		{
+			$('#feedContainer').append(itemWrapper);
+			$(itemWrapper).fadeIn(1300);
+			ColumnsHeightArray[minIndex] += minIndex+$(itemWrapper).height()+MARGIN;
+		}
+	}
 }
 
 // Iterate over XML nodes and arrange them in to columns
@@ -134,14 +156,16 @@ function getItemsFromFile(path) {
 
 // Get Items via ajax call 
 function getItemsFromServer(rssURL) {
+	var startTime = new Date().getTime();
 	$.get(ServerAppURL + '?' + ServerEvent + '=' + ServerEventValue + '&rssURL='+rssURL+'&offset='+OFFSET,function(data) {
 			var items = eval(data);
 			 //without templating solution
-			for(i in items) {
-				arrangeItemsIntoColumns(items[i]);
-			}
-			
-			//arrangeItemsIntoColumnsJQT(items);
+			//for(i in items) {
+			//	arrangeItemsIntoColumns(items[i]);
+			//}
+			console.log(new Date().getTime() - startTime);
+			arrangeItemsIntoColumnsJQT(items);
+			console.log(new Date().getTime() - startTime);
 		},'json');
 }
 
@@ -149,3 +173,8 @@ function getItemsFromServer(rssURL) {
 Array.min = function(array) {
  return Math.min.apply(Math, array);
 };
+
+
+function htmlDecode(input){
+  return input.replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
+}
