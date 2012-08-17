@@ -6,8 +6,13 @@ php based RSS aggregator
 
 This is a simple php application to fetch contents from your favorite RSS based content provider.
 Right now the default url is Engadget, but any rss feed can be loaded by providing it as a value of url parameter in the query string.
-e.g. ?url=<a href="http://feeds.gawker.com/gizmodo/full">http://feeds.gawker.com/gizmodo/full</a> 
-This would get results from Gizmodo
+
+e.g. ?url=http://feeds.gawker.com/gizmodo/full 
+This would get results from Gizmodo.</p>
+
+Take a look at the working example at 
+<a href="http://50.116.61.85/content-agg/">Engadget feed</a>
+<a href="http://50.116.61.85/content-agg?url=http://feeds.gawker.com/gizmodo/full">Gizmodo Feed</a>
 
 ## Currently in progress 
 
