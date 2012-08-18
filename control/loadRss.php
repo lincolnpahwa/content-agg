@@ -17,14 +17,14 @@ class LoadRSS {
 		$size = 0;
 		$currentIndex = 0;
 		foreach($rss->channel->item as $item) {
+			$itemData = array(
+				'title'=>$item->title,
+				'link'=>$item->link,
+				'description'=>$item->description,
+				'author'=>$item->author,
+				'pubDate'=>$item->pubDate
+			);
 			if(($currentIndex >= $offset) && ($currentIndex < ($offset + $this->PAGE_SIZE))){
-				$itemData = array(
-					'title'=>$item->title,
-					'link'=>$item->link,
-					'description'=>$item->description,
-					'author'=>$item->author,
-					'pubDate'=>$item->pubDate
-				);
 				array_push($rssDataArray, $itemData);
 				$size++;
 			}
