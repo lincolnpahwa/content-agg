@@ -1,5 +1,5 @@
 
-var COLUMN_WIDTH = 250, NUM_COLUMNS = 0, MARGIN = 15, ColumnsHeightArray, LeftOffSet = 100, DEFAULT_RSS_URL='http://www.engadget.com/rss.xml' ;
+var COLUMN_WIDTH = 250, NUM_COLUMNS = 0, MARGIN = 15, ColumnsHeightArray, LeftOffSet = 100, DEFAULT_RSS_URL='http://www.engadget.com/rss.xml', DEFAULT_XML_PATH = 'data/userXML.xml' ;
 var itemsArray = [];
 var OFFSET = 1;
 
@@ -38,7 +38,10 @@ function addDataToPage(){
 	if(rssURL == null || rssURL == '') {
 		rssURL = DEFAULT_RSS_URL;
 	}
-	getItemsFromServer(rssURL);
+	// load items from server
+	//getItemsFromServer(rssURL);
+	// load items from xml ( local path for testing)
+	getItemsFromFile(DEFAULT_XML_PATH);
 }
 // Arranges items in to columns, adding item to the column with least height
 function arrangeItemsIntoColumns(item) {
@@ -87,7 +90,7 @@ function arrangeItemsIntoColumns(item) {
 		}
 }
 
-function arrangeItemsIntoColumnsJQT(items) {
+function arrangeItemsIntoColumnsTemplating(items) {
 	var markup = '<div class="item"><div class="title">${title[0]}</div><div class="date">${pubDate[0]}</div><div class="desc">${description[0]}</div></div>';
 
 	/* Compile markup string as a named template */
@@ -120,7 +123,8 @@ function arrangeItemsIntoColumnsJQT(items) {
 }
 
 // Iterate over XML nodes and arrange them in to columns
-function arrangeXMLItems(){
+function arrangeXMLItems(xml){
+	var items = [];
 	$xml.find("item").each(function() {
 		var $this = $(this),
 			item = {
@@ -130,8 +134,12 @@ function arrangeXMLItems(){
 				pubDate: $.trim($this.find("pubDate").text()),
 				author: $.trim($this.find("author").text())
 		};
-		arrangeItemsIntoColumns(item);
+		items.push(item);
+		/** non templating solution **/
+		//arrangeItemsIntoColumns(item);
 	});
+	/** templating solution **/
+	arrangeItemsIntoColumnsTemplating(items);
 }
 
 // Function to get the query string value for the given parameter
@@ -148,8 +156,8 @@ function getQueryString(param) {
 // Get Items from an xml file
 function getItemsFromFile(path) {
 	$.get(path, function(data) {
-	    var $xml = $(data);
-	    arrangeXMLItems($xml);
+	    var xml = $(data);
+	    arrangeXMLItems(xml);
 	},
 	'xml');
 }
@@ -162,7 +170,7 @@ function getItemsFromServer(rssURL) {
 			//for(i in items) {
 			//	arrangeItemsIntoColumns(items[i]);
 			//}
-			arrangeItemsIntoColumnsJQT(items);
+			arrangeItemsIntoColumnsTemplating(items);
 		},'json');
 }
 
