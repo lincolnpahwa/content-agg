@@ -16,7 +16,7 @@ Take a look at the working example at
 
 ## Currently in progress 
 
-* Better templating solution using mustache.js or dust.js
+* Better templating solution using mustache.js or dust.js -- currently using jquery templating.
 * In place (within page) content viewing.
 
 ## Roadmap

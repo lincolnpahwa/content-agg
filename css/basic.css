@@ -27,6 +27,7 @@ body {
 	color: #ddd;
 	font-size: 14px;
 	font-family: Arial, Verdana;
+	cursor: pointer;
 	border-radius: 5px;
 	cursor: pointer;
 	-webkit-transition: all 0.5s ease-in-out;
