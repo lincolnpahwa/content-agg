@@ -61,13 +61,8 @@ function createPageElement(item) {
 		itemTitle.innerHTML = item.title;
 		var itemAuthor = document.createElement('div');
 		itemAuthor.className = 'author';
-<<<<<<< HEAD
 		if(item.author && item.author)
 			itemAuthor.innerHTML = item.author;
-=======
-		if(item.author && item.author[0])
-			itemAuthor.innerHTML = item.author[0];
->>>>>>> cb7a530158c956c39bb2c1563fb437aa4666340e
 		var itemDate = document.createElement('div');
 		itemDate.className = 'date';
 		itemDate.innerHTML = item.pubDate;
@@ -155,41 +150,6 @@ function addItemToThePage(itemWrapper, item) {
 		}
 }
 
-<<<<<<< HEAD
-=======
-function arrangeItemsIntoColumnsJQT(items) {
-	var markup = '<div class="item"><div class="title">${title[0]}</div><div class="date">${pubDate[0]}</div><div class="desc">${description[0]}</div></div>';
-
-	/* Compile markup string as a named template */
-	$.template( "itemTemplate", markup );
-
-	/* Render the named template */
-	var renderedItems = $.tmpl( "itemTemplate", items );
-	for(var i = 0; i<renderedItems.length;i++) {
-		var itemWrapper = renderedItems[i];
-		var itemDesc = '';
-		$(itemWrapper).context.innerHTML = htmlDecode($(itemWrapper).context.innerHTML);
-		var minValueOfColumn = Array.min(ColumnsHeightArray);
-		var minIndex = $.inArray(minValueOfColumn, ColumnsHeightArray);
-		var itemLeftPosition = MARGIN+(minIndex*(COLUMN_WIDTH+MARGIN))+LeftOffSet;
-		var randomColor = '#'+randomHexHelperArray[Math.floor((Math.random()*15))]+randomHexHelperArray[Math.floor((Math.random()*15))]
-		+randomHexHelperArray[Math.floor((Math.random()*15))]+randomHexHelperArray[Math.floor((Math.random()*15))]
-		+randomHexHelperArray[Math.floor((Math.random()*15))]+randomHexHelperArray[Math.floor((Math.random()*15))];
-		$(itemWrapper).css ({
-			'left' : itemLeftPosition+'px',
-			'top'  : minValueOfColumn+'px',
-			'background' : randomColor
-		});
-		//if(	$(itemWrapper)findtitle[0].indexOf('Podcast') <0)
-		{
-			$('#feedContainer').append(itemWrapper);
-			$(itemWrapper).fadeIn(1300);
-			ColumnsHeightArray[minIndex] += minIndex+$(itemWrapper).height()+MARGIN;
-		}
-	}
-}
-
->>>>>>> cb7a530158c956c39bb2c1563fb437aa4666340e
 // Iterate over XML nodes and arrange them in to columns
 function arrangeXMLItems(xml){
 	var items = [];
@@ -234,17 +194,8 @@ function getItemsFromFile(path) {
 function getItemsFromServer(rssURL) {
 	$.get(ServerAppURL + '?' + ServerEvent + '=' + ServerEventValue + '&rssURL='+rssURL+'&offset='+OFFSET,function(data) {
 			var items = eval(data);
-<<<<<<< HEAD
 			initData(items);
 			arrangeItemsIntoColumns(ItemsArray, false);
-			
-=======
-			 //without templating solution
-			//for(i in items) {
-			//	arrangeItemsIntoColumns(items[i]);
-			//}
-			arrangeItemsIntoColumnsJQT(items);
->>>>>>> cb7a530158c956c39bb2c1563fb437aa4666340e
 		},'json');
 }
 

@@ -18,19 +18,11 @@ class LoadRSS {
 		$currentIndex = 0;
 		foreach($rss->channel->item as $item) {
 			$itemData = array(
-<<<<<<< HEAD:control/loadRss.php
 				'title'=>$item->title,
 				'link'=>$item->link,
 				'description'=>$item->description,
 				'author'=>$item->author,
 				'pubDate'=>$item->pubDate
-=======
-				'title'=>$item->title[0],
-				'link'=>$item->link[0],
-				'description'=>$item->description,
-				'author'=>$item->author[0],
-				'pubDate'=>$item->pubDate[0]
->>>>>>> cb7a530158c956c39bb2c1563fb437aa4666340e:control/LoadRSS.php
 			);
 			if(($currentIndex >= $offset) && ($currentIndex < ($offset + $this->PAGE_SIZE))){
 				array_push($rssDataArray, $itemData);
